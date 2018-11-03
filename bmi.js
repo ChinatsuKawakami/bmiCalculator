@@ -2,7 +2,7 @@
  * Author : Chinatsu Kawakami
  * Created Date: 2nd Nov 2018
  * Name: bmi.js
- * Version 0.0.2 add function to calculate BMI
+ * Version 0.0.3 fixed function to calculate BMI
  * Description: This is BMI Calculator
  * */
 
@@ -27,13 +27,14 @@ var result;
 var standard;
 var metric;
 
-const converF = 30.48;
-const converI = 2.54;
-const converW = 0.453592;
-feet = document.getElementById('feetTxt').value;
-inch = document.getElementById('inchTxt').value;
-pounds = document.getElementById('weightTxt').value;
-resultbox = document.getElementById('resultTxt').value;
+var converF = 30.48;
+var converI = 2.54;
+var converW = 0.453592;
+feet = document.getElementById('feetTxt');
+inch = document.getElementById('inchTxt');
+pounds = document.getElementById('weightTxt');
+resultbox = document.getElementById('resultTxt');
+var perTxt = document.getElementById('perTxt');
 //function 
 
 //formula of BMI
@@ -44,17 +45,47 @@ Calculation: [weight (kg) / height (cm) / height (cm)] x 10,000
 
 //for Standard height = feet * 30.48 + inch * 2.54
 
+
+
+function resultFunction(result){
+  switch(result){
+  case result<18.5:
+	   return'UnderWeight';
+   
+  case result>=18.5 || result<25:
+	   return'NomalWeight';
+     
+  case result>=25 || result<29.9:
+	   return'OverWeight';
+ 
+  case result>=30:
+	   return'Obesity';
+      
+   default:
+	   break;
+  }
+}
+  
 //convert from feet and inch to cm
-height = feet*converF + inch*converI;
-weight = pounds*converW;
-var calcFunction = (function(){
-	
-	 resultbox=resultFunction(weight/height*height*10000);
-	 return  weight/height*height*10000;
-	 });
-console.log(weight);
-console.log(height);
-console.log(calcFunction());
+
+//problem is that I cannot assign feet.value to height, same problem happens in weight as well. 
+//I should have them into calcFunction. After that, problems was gone.
+
+//height = feet.value*converF + inch.value*converI;
+//weight = pounds.value*converW;
+
+
+/*
+Formula: weight (kg) / [height (m)]2
+Calculation: [weight (kg) / height (cm) / height (cm)] x 10,000
+*/
+
+function calcFunction(){
+	height = feet.value*converF + inch.value*converI;
+	weight = pounds.value*converW;
+	 resultbox.value=resultFunction(weight/height*height*10000);
+	 perTxt.value= weight/height*height*10000;
+	 }
 
 /*Underweight = <18.5
 Normal weight = 18.5–24.9 
@@ -62,23 +93,3 @@ Overweight = 25–29.9
 Obesity = BMI of 30 or greate*/
 
 
-
-
-function resultFunction(result){
-  switch(result){
-  case result<18.5:
-	   return'UnderWeight';
-       break;
-  case result>=18.5 || result<25:
-	   return'NomalWeight';
-       break;   
-  case result>=25 || result<29.9:
-	   return'OverWeight';
-       break;
-  case result>=30:
-	   return'Obesity';
-       break;
-   default:
-	   break;
-  }
-}
