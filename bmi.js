@@ -2,7 +2,7 @@
  * Author : Chinatsu Kawakami
  * Created Date: 2nd Nov 2018
  * Name: bmi.js
- * Version 0.0.3 fixed function to calculate BMI
+ * Version 0.0.4 fixed function to calculate BMI for Imperial
  * Description: This is BMI Calculator
  * */
 
@@ -23,7 +23,7 @@ var weightbox;
 var heightbox;
 var resultbox;
 var result;
-
+var bmi;
 var standard;
 var metric;
 
@@ -48,21 +48,16 @@ Calculation: [weight (kg) / height (cm) / height (cm)] x 10,000
 
 
 function resultFunction(result){
-  switch(result){
-  case result<18.5:
+  if(result<18.5){
 	   return'UnderWeight';
-   
-  case result>=18.5 || result<25:
+  }else if(result>=18.5 || result<25){
 	   return'NomalWeight';
-     
-  case result>=25 || result<29.9:
+  }else if(result>=25 || result<29.9){
 	   return'OverWeight';
- 
-  case result>=30:
+  }else if(result>=30){
 	   return'Obesity';
-      
-   default:
-	   break;
+  }else{
+	  return 'error';
   }
 }
   
@@ -74,17 +69,25 @@ function resultFunction(result){
 //height = feet.value*converF + inch.value*converI;
 //weight = pounds.value*converW;
 
+/*Imprtial
+ * BMI = (weight in Pounds / (height in inches * height in inches )) * 703
+ * 
+ */
 
-/*
-Formula: weight (kg) / [height (m)]2
-Calculation: [weight (kg) / height (cm) / height (cm)] x 10,000
+/*Metric 
+*BMI = (Weight in Kilograms / (Height in Meters x Height in Meters))
 */
 
-function calcFunction(){
-	height = feet.value*converF + inch.value*converI;
-	weight = pounds.value*converW;
-	 resultbox.value=resultFunction(weight/height*height*10000);
-	 perTxt.value= weight/height*height*10000;
+function metricCalcFunction(){
+	
+}
+function imperialCalcFunction(){
+	height = (inch.value);
+	weight = pounds.value;
+	bmi = (weight/Math.pow(height,2))*703;
+	bmi = Math.round(bmi * 10)/10;
+	 resultbox.value=resultFunction(bmi);
+	 perTxt.value= bmi;
 	 }
 
 /*Underweight = <18.5
