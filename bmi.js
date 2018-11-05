@@ -2,7 +2,7 @@
  * Author : Chinatsu Kawakami
  * Created Date: 2nd Nov 2018
  * Name: bmi.js
- * Version 0.0.4 fixed function to calculate BMI for Imperial
+ * Version 0.0.5 fixed function to calculate BMI for Metric
  * Description: This is BMI Calculator
  * */
 
@@ -13,9 +13,8 @@
 
 var height;
 var weight;
-var centimeters;
+var meter;
 var kilograms;
-var feet;
 var inch;
 var pounds;
 var btn; 
@@ -30,8 +29,10 @@ var metric;
 var converF = 30.48;
 var converI = 2.54;
 var converW = 0.453592;
-feet = document.getElementById('feetTxt');
-inch = document.getElementById('inchTxt');
+
+meter=document.getElementById('heightTxt');
+kilograms = document.getElementById('weightTxt');
+inch = document.getElementById('heightTxt');
 pounds = document.getElementById('weightTxt');
 resultbox = document.getElementById('resultTxt');
 var perTxt = document.getElementById('perTxt');
@@ -79,7 +80,8 @@ function resultFunction(result){
 */
 
 function metricCalcFunction(){
-	
+   bmi = (weight/Math.pow(meter,2));
+   bmi=Math.round(bmi*10)/10;
 }
 function imperialCalcFunction(){
 	height = (inch.value);
